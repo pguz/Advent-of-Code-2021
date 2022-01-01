@@ -4,17 +4,8 @@ import json
 import os.path
 import time
 
-from solutions import (
-    day_02,
-    day_03,
-    day_04,
-    day_05,
-    day_06,
-    day_07,
-    day_08,
-    day_09,
-    day_10,
-)
+from solutions import (day_02, day_03, day_04, day_05, day_06, day_07, day_08,
+                       day_09, day_10)
 
 day_to_solution_file_mapping = {
     "02": day_02,
@@ -95,7 +86,10 @@ def main():
     task_id = args.task
     expected_result = args.expected_result
     if not expected_result:
-        expected_result = read_results_file()[day][int(task_id) - 1]
+        try:
+            expected_result = read_results_file()[day][int(task_id) - 1]
+        except KeyError:
+            print(f"No expected results for day {day} in results.json file provided.")
 
     day_module = day_to_solution_file_mapping[day]
 
