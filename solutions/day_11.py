@@ -2,7 +2,7 @@
 
 
 def parse_file(fd):
-    return ([list(map(int, l)) for l in fd.read().splitlines()],)
+    return ([list(map(int, line)) for line in fd.read().splitlines()],)
 
 
 def find_number_of_flashes_after_100_steps(energy_levels):
@@ -35,7 +35,16 @@ def find_number_of_flashes_after_100_steps(energy_levels):
             i, j = flashes.pop()
             flashes_number += 1
             energy_levels[i][j] = 0
-            for _i, _j in [(i-1, j), (i-1, j+1), (i, j+1), (i+1, j+1), (i+1, j), (i+1, j-1), (i, j-1), (i-1, j-1)]:
+            for _i, _j in [
+                (i - 1, j),
+                (i - 1, j + 1),
+                (i, j + 1),
+                (i + 1, j + 1),
+                (i + 1, j),
+                (i + 1, j - 1),
+                (i, j - 1),
+                (i - 1, j - 1),
+            ]:
                 if _add_energy(_i, _j) is True:
                     flashes.add((_i, _j))
 
@@ -67,15 +76,24 @@ def find_all_octopuses_flash_step(energy_levels):
                 energy_levels[i][j] += 1
                 if energy_levels[i][j] >= 10:
                     flashes.add((i, j))
-            
+
         while flashes:
             i, j = flashes.pop()
             energy_levels[i][j] = 0
-            for _i, _j in [(i-1, j), (i-1, j+1), (i, j+1), (i+1, j+1), (i+1, j), (i+1, j-1), (i, j-1), (i-1, j-1)]:
+            for _i, _j in [
+                (i - 1, j),
+                (i - 1, j + 1),
+                (i, j + 1),
+                (i + 1, j + 1),
+                (i + 1, j),
+                (i + 1, j - 1),
+                (i, j - 1),
+                (i - 1, j - 1),
+            ]:
                 if _add_energy(_i, _j) is True:
                     flashes.add((_i, _j))
         step += 1
-    
+
     return step
 
 
