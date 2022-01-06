@@ -53,11 +53,14 @@ def read_results_file():
 
 def measure_aoc_task_execution(function):
     @functools.wraps(function)
-    def wrap(task_name, **kwargs):
-        time_start_point = time.time()
-        result = function(**kwargs)
-        time_end_point = time.time()
-        print(f"{task_name} took {time_end_point - time_start_point:.5f}[s]")
+    def wrap(task_name, retry, **kwargs):
+        task_duration = 0
+        for _ in range(retry):
+            time_start_point = time.time()
+            result = function(**kwargs)
+            time_end_point = time.time()
+            task_duration += time_end_point - time_start_point
+        print(f"{task_name} took {task_duration/retry:.5f}[s]")
         return result
 
     return wrap
@@ -91,10 +94,17 @@ def main():
         type=int,
         help="Please provide expected result for a given task or provide 'results.json' file",
     )
+    parser.add_argument(
+        "--retry",
+        required=False,
+        type=int,
+        help="Number of iterations for a given task. For more stable time measurement. Default: 100",
+    )
     args = parser.parse_args()
     day = args.day
     task_id = args.task
     expected_result = args.expected_result
+    retry = args.retry or 100
     if not expected_result:
         try:
             expected_result = read_results_file()[day][int(task_id) - 1]
@@ -105,6 +115,7 @@ def main():
 
     calculated_result = run_solution_function(
         task_name=f"day_{day}_task_{task_id}",
+        retry=retry,
         input_file=f"inputs/{day}.txt",
         file_parse_function=day_module.parse_file,
         solution_function=getattr(day_module, f"solution_function_{task_id}"),
