@@ -2,7 +2,7 @@
 
 
 def parse_file(fd):
-    return [fd.read().splitlines()]
+    return (fd.read().splitlines(),)
 
 
 def simple_control(commands):
@@ -10,7 +10,6 @@ def simple_control(commands):
     for command in commands:
         d, v = command.split()
         v = int(v)
-        # if statement occurred to be much faster than functional equivalents
         if d == "forward":
             x += v
         elif d == "up":
@@ -25,7 +24,6 @@ def complex_control(commands):
     for command in commands:
         d, v = command.split()
         v = int(v)
-        # if statement occurred to be much faster than functional equivalents
         if d == "forward":
             x += v
             y += a * v
