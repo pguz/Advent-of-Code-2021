@@ -57,9 +57,7 @@ def calculate_winner_quantum_die(starting_positions):
             subturn = 0
         return sum(
             [
-                make_subturn(
-                    f_pos, f_pkt, s_pos, s_pkt, player, subturn, dice_side
-                )
+                make_subturn(f_pos, f_pkt, s_pos, s_pkt, player, subturn, dice_side)
                 for dice_side in range(1, 4)
             ]
         )
