@@ -24,49 +24,6 @@ def calculate_sum_of_risk_levels(cave):
     return risk_level_sum
 
 
-def calculate_sum_of_risk_levels_v2(cave):
-    h = len(cave)
-    w = len(cave[0])
-    risk_level_sum = 0
-    visited = [[False for i in range(w)] for j in range(h)]
-
-    def _find_low_point(j, i):
-        if visited[j][i] is True:
-            return None
-        visited[j][i] = True
-        cand = cave[j][i]
-        if i > 0:
-            if cave[j][i - 1] > cand:
-                visited[j][i - 1] = True
-            else:
-                return _find_low_point(j, i - 1)
-        if i < w - 1:
-            if cave[j][i + 1] > cand:
-                visited[j][i + 1] = True
-            else:
-                return _find_low_point(j, i + 1)
-        if j > 0:
-            if cave[j - 1][i] > cand:
-                visited[j - 1][i] = True
-            else:
-                return _find_low_point(j - 1, i)
-        if j < h - 1:
-            if cave[j + 1][i] > cand:
-                visited[j + 1][i] = True
-            else:
-                return _find_low_point(j + 1, i)
-        return cand
-
-    for j in range(h):
-        for i in range(w):
-            if visited[j][i] is True:
-                continue
-            potential_low_point = _find_low_point(j, i)
-            if potential_low_point is not None:
-                risk_level_sum += int(potential_low_point) + 1
-    return risk_level_sum
-
-
 def find_result_from_basins(cave):
     h = len(cave)
     w = len(cave[0])
