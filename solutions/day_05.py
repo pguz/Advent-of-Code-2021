@@ -28,7 +28,7 @@ def detect_vents_simple(vents):
             for c in range(vent[0][0], vent[1][0] + 1):
                 vents_points[(c, vent[0][1])] += 1
             continue
-    return sum([1 for p, v in vents_points.items() if v >= 2])
+    return sum([v >= 2 for v in vents_points.values()])
 
 
 def detect_vents_simple_v2(vents):
@@ -71,7 +71,7 @@ def detect_vents_with_diag(vents):
             for p in range(0, vent[1][0] - vent[0][0] + 1):
                 vents_points[vent[0][0] + p, vent[0][1] - p] += 1
             continue
-    return sum([1 for p, v in vents_points.items() if v >= 2])
+    return sum([v >= 2 for v in vents_points.values()])
 
 
 def detect_vents_with_diag_v2(vents):
