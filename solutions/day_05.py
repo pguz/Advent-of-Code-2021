@@ -31,27 +31,6 @@ def detect_vents_simple(vents):
     return sum([v >= 2 for v in vents_points.values()])
 
 
-def detect_vents_simple_v2(vents):
-    first_occurence = set()
-    second_occurence = set()
-    for vent in vents:
-        if vent[0][0] == vent[1][0]:
-            for c in range(vent[0][1], vent[1][1] + 1):
-                p = (vent[0][0], c)
-                if p in first_occurence:
-                    second_occurence.add(p)
-                else:
-                    first_occurence.add(p)
-        elif vent[0][1] == vent[1][1]:
-            for c in range(vent[0][0], vent[1][0] + 1):
-                p = (c, vent[0][1])
-                if p in first_occurence:
-                    second_occurence.add(p)
-                else:
-                    first_occurence.add(p)
-    return len(second_occurence)
-
-
 def detect_vents_with_diag(vents):
     vents_points = defaultdict(int)
     for vent in vents:
@@ -72,45 +51,6 @@ def detect_vents_with_diag(vents):
                 vents_points[vent[0][0] + p, vent[0][1] - p] += 1
             continue
     return sum([v >= 2 for v in vents_points.values()])
-
-
-def detect_vents_with_diag_v2(vents):
-    first_occurence = set()
-    second_occurence = set()
-    for vent in vents:
-        if vent[0][0] == vent[1][0]:
-            for c in range(vent[0][1], vent[1][1] + 1):
-                p = (vent[0][0], c)
-                if p in first_occurence:
-                    second_occurence.add(p)
-                else:
-                    first_occurence.add(p)
-            continue
-        if vent[0][1] == vent[1][1]:
-            for c in range(vent[0][0], vent[1][0] + 1):
-                p = (c, vent[0][1])
-                if p in first_occurence:
-                    second_occurence.add(p)
-                else:
-                    first_occurence.add(p)
-            continue
-        if vent[1][1] - vent[0][1] == vent[1][0] - vent[0][0]:
-            for c in range(0, vent[1][1] - vent[0][1] + 1):
-                p = (vent[0][0] + c, vent[0][1] + c)
-                if p in first_occurence:
-                    second_occurence.add(p)
-                else:
-                    first_occurence.add(p)
-            continue
-        if vent[0][1] - vent[1][1] == vent[1][0] - vent[0][0]:
-            for c in range(0, vent[1][0] - vent[0][0] + 1):
-                p = (vent[0][0] + c, vent[0][1] - c)
-                if p in first_occurence:
-                    second_occurence.add(p)
-                else:
-                    first_occurence.add(p)
-            continue
-    return len(second_occurence)
 
 
 solution_function_01 = detect_vents_simple
