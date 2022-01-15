@@ -40,7 +40,7 @@ def get_middle_score_of_autocompletion(chunks):
         "}": "{",
         ">": "<",
     }
-    illegal_character_pentlies = {
+    autocompletion_character_points = {
         "(": 1,
         "[": 2,
         "{": 3,
@@ -61,7 +61,7 @@ def get_middle_score_of_autocompletion(chunks):
         if valid_chunk is True:
             points = 0
             while stack:
-                points = points * 5 + illegal_character_pentlies[stack.pop()]
+                points = points * 5 + autocompletion_character_points[stack.pop()]
             autocompletion_points.append(points)
     return sorted(autocompletion_points)[len(autocompletion_points) // 2]
 
