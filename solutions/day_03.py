@@ -2,15 +2,15 @@
 
 
 def parse_file(fd):
-    return [fd.read().splitlines()]
+    return (fd.read().splitlines(),)
 
 
 def calculate_power_consumption(measurements):
-    # The fastest found bit_counter
-    bits_counter = map(lambda l: "".join(l).count("1"), zip(*map(list, measurements)))
-
     threshold = len(measurements) / 2
-    gamma_rate = "".join(["1" if value > threshold else "0" for value in bits_counter])
+
+    onces = map(lambda l: l.count("1") > threshold, zip(*map(list, measurements)))
+
+    gamma_rate = "".join(map(str, map(int, onces)))
     gamma_rate = int(gamma_rate, 2)
 
     sample_size = len(measurements[0])
@@ -32,9 +32,9 @@ def calculate_life_support_rating(measurements):
         return int(candidates.pop(), 2)
 
     oxygen_generator_rating = _calculate_rating(lambda v: "1" if v >= 0 else "0")
-    CO2_scrubber_rating = _calculate_rating(lambda v: "0" if v >= 0 else "1")
+    co2_scrubber_rating = _calculate_rating(lambda v: "0" if v >= 0 else "1")
 
-    return oxygen_generator_rating * CO2_scrubber_rating
+    return oxygen_generator_rating * co2_scrubber_rating
 
 
 solution_function_01 = calculate_power_consumption
