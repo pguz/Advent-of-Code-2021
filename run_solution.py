@@ -112,10 +112,14 @@ def main():
     expected_result = args.expected_result
     retry = args.retry or 100
     if not expected_result:
-        try:
-            expected_result = read_results_file()[day][int(task_id) - 1]
-        except KeyError:
-            print(f"No expected results for day {day} in results.json file provided.")
+        results = read_results_file()
+        if results is not None:
+            try:
+                expected_result = results[day][int(task_id) - 1]
+            except KeyError:
+                print(
+                    f"No expected results for day {day} in results.json file provided."
+                )
 
     day_module = day_to_solution_file_mapping[day]
 
@@ -127,10 +131,13 @@ def main():
         solution_function=getattr(day_module, f"solution_function_{task_id}"),
     )
 
-    if expected_result is not None and calculated_result != expected_result:
-        print(
-            f"Provided expected result {expected_result} is not equal to the calculated one {calculated_result}"
-        )
+    if expected_result is not None:
+        if calculated_result != expected_result:
+            print(
+                f"Provided expected result {expected_result} is not equal to the calculated one {calculated_result}"
+            )
+    else:
+        print("No expected result was provided")
 
 
 if __name__ == "__main__":
