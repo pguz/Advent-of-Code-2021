@@ -28,7 +28,7 @@ python3 run_solution.py --day 07 --task 02 --expected-result 100
 ```
 
 ## Overview
-From 25 days of tasks, the solutions for days 22th and 24th are still missing.
+From 25 days of tasks, the solutions for day 22th is still missing.
 
 To run all task, the special script has been created:
 ```sh
