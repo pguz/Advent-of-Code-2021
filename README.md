@@ -24,11 +24,11 @@ python3 run_solution.py --day 09 --task 02 --retry 10
 
 You may want to check the calculated result with the expected one. In that case run:
 ```sh
-python3 run_solution.py --day 07 --task 02 --expected-result 100
+python3 run_solution.py --day 09 --task 02 --expected-result 100
 ```
 
 ## Overview
-From 25 days of tasks, the solutions for day 22th is still missing.
+Last task was resolved on the 22th Jan 2022.
 
 To run all task, the special script has been created:
 ```sh

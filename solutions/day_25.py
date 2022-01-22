@@ -50,8 +50,8 @@ def make_cucumbers_stop_moving(board):
 
 
 def collect_all_starts(*args, **kwargs):
-    print("Not all stars have been collected yet.")
-    return False
+    print("All stars have been collected.")
+    return True
 
 
 solution_function_01 = make_cucumbers_stop_moving
